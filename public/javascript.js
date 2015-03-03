@@ -49,18 +49,19 @@
         for(var i = 0; i< badCount.length; i++){
           badCountHTML += '<tr><td><p>' + badCount[i][0] + ' - ' + badCount[i][1] + '</p></td></tr>';
         }
-        $('#badcounttable').html(badCountHTML);
+        $('#badcounttable').html('<thead><th>Bad Records</th></thead>' + badCountHTML);
       }
       var summary = {
         total: data.body.length,
         highCount: highCount,
         badCount: badCount.length,
       }
-      $('#summarytable').html('<tr><td><p> Total Records: ' + data.body.length + '</p></td></tr>' +
-                              '<tr><td><p> Total time: ' + Math.floor(data.body.length/60) + ' min</p></td></tr>' +
+      $('#summarytable').html('<thead><th> Summary </th></thead>' +
                               '<tr><td><p> Target Record Count: ' + highCount + '</p></td></tr>' + 
+                              '<tr><td><p> Total Records: ' + data.body.length + '</p></td></tr>' +
+                              '<tr><td><p> Total time: ' + Math.floor(data.body.length/60) + ' min</p></td></tr>' +
                               '<tr><td><p> Bad Record Count: ' + badCount.length + '</p></td></tr>');
-      $('#snapshottable').html(html);
+      $('#snapshottable').html('<thead><th>Records</th></thead>' + html);
     });
   });
 
