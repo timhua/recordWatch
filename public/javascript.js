@@ -7,8 +7,8 @@
     var highCount;
     var badCount = [];
     var minCount = 100;
-    var date = new Date()
-    $('#time').html("<h5>Last page refresh PST time: " + date +"</h5>");
+    var date = new Date();
+    $('#time').html("<h5>Last page refresh UTC time: " + date.toISOString() +"</h5>");
     $.getJSON('/api/getData', function(data){
       // console.log(data.body);
       data.body.pop();
@@ -40,9 +40,9 @@
           color = "";
         } else {
           color = "red";
-          badCount.push([tsDate, data.body[i].result.rowCount])
+          badCount.push([data.body[i].timestamp, data.body[i].result.rowCount])
         }
-        html += '<tr><td bgcolor="'+ color +'" name="'+ data.body[i].timestamp +'"">' + tsDate + ' - '+ data.body[i].result.rowCount + '</td></tr>';
+        html += '<tr><td bgcolor="'+ color +'" name="'+ data.body[i].timestamp +'"">' + data.body[i].timestamp + ' - '+ data.body[i].result.rowCount + '</td></tr>';
       }
       if(badCount !== []){
         var badCountHTML = '';
