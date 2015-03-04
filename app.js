@@ -21,7 +21,7 @@ app.get('/api/getData', function(req,res){
   var query = { 
               "queryType": "timeseries",
               "dataSource": "points_100ms",
-              "granularity": {"type": "period", "period": "PT1s"},
+              "granularity": {"type": "period", "period": "PT1m"},
               "aggregations":[ {"type": "count", "name": "rowCount"} ],
               "intervals": [moment.utc().subtract(1, 'hours').toISOString() + '/' + moment.utc().toISOString()]
             }
