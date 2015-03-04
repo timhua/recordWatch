@@ -36,7 +36,7 @@
       for(var i = data.body.length-1; i > 0; i--){
         var tsDate = new Date(data.body[i].timestamp)
         // console.log(tsDate);
-        if(data.body[i].result.rowCount == highCount || data.body[i].result.rowCount > 60){
+        if(data.body[i].result.rowCount == highCount){
           color = "";
         } else {
           color = "red";

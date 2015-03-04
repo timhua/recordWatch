@@ -4,7 +4,7 @@ var exec = require('child_process').exec;
 var moment = require('moment');
 var app = express();
 var now = moment.utc().toISOString();
-var start =  moment.utc().subtract(12, 'hours').toISOString()
+var start =  moment.utc().subtract(1, 'hours').toISOString()
 var port = 3000;
 var result
 
