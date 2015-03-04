@@ -11,7 +11,8 @@
     $('#time').html("<h5>Last page refresh PST time: " + date +"</h5>");
     $.getJSON('/api/getData', function(data){
       // console.log(data.body);
-      
+      data.body.pop();
+      data.body.pop();
 
       data.body.forEach(function(el){
          if(el.result.rowCount in results) {
