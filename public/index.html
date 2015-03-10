@@ -7,6 +7,22 @@
 <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body style="padding:20px">
+<form class="form-inline">
+  <div class="form-group">
+    <label for="host">Host </label>
+    <input type="text" class="form-control" id="host" placeholder="192.168.20.220">
+  </div>
+<!--   <div class="form-group">
+    <label for="port">Port</label>
+    <input type="text" class="form-control" id="port" placeholder="2179">
+  </div> -->
+  <div class="form-group">
+    <label for="time">Time </label>
+    <input type="number" class="form-control" id="hosttime" placeholder="60">
+  </div>
+  <button id="submit" type="submit" class="btn btn-default">Submit</button>
+</form>
+
 <div id="time" style="height:20px"></div><br>
 <div class="row" id="infobox" style="margin: auto; height:600px; width:auto">
   <div class="col-md-1" id="container" style="height: 600px; width: 200px; padding: 5px; overflow: scroll">

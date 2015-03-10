@@ -6,7 +6,7 @@
 
     var appendTime = function(time){
       $.get('/api/serverTime', function(data){
-      $('#time').html("<h5>Last page refresh SERVER UTC time: " + data +"</h5>");
+        $('#time').html("<h5>Last page refresh SERVER UTC time: " + data +"</h5>");
       });
     };
       
@@ -67,12 +67,28 @@
     };
 
     var appendSummary = function(data, highCount){
+      // var totalLostRecords = badCount.reduce(function(prev, curr, i){
+      //                         return (highCount - curr[i][1]) + prev;
+      //                       });
+      // console.log(totalLostRecords);
       $('#summarytable').html('<thead><th> Summary </th></thead>' +
                               '<tr><td><p> Target Record Count: ' + highCount + '</p></td></tr>' + 
-                              '<tr><td><p> Total Records: ' + data.body.length + '</p></td></tr>' +
+                              '<tr><td><p> Total Records: ' + (data.body.length-1) + '</p></td></tr>' +
                               '<tr><td><p> Total time: ' + Math.floor(data.body.length/60) + ' min</p></td></tr>' +
                               '<tr><td><p> Bad Record Count: ' + badCount.length + '</p></td></tr>');
+                              // '<tr><td><p> Total lost records: ' + totalLostRecords + ' min</p></td></tr>');
     };
+
+    var getHostInfo = function(){
+      var values = {};
+      $.each($('form:input').serializeArray(), function(i, field) {
+          console.log(field);
+          values[field.name] = field.value;
+      });
+      return values;
+    };
+
+    console.log(getHostInfo());
 
     $.getJSON('/api/getData', function(data){
       // Discarding two latest records
@@ -80,11 +96,17 @@
       data.body.pop();
 
       sortedData = sortResults(data.body);
+      console.log(sortedData);
       appendRecordCount(sortedData);
       appendSnapshotRecords(data.body, sortedData[0][0]);
       appendBadCount(badCount);
       appendSummary(data, sortedData[0][0]);
       appendTime(data.serverTime);
+    });
+
+    $('button').click(function(){
+      var hostInfo = getHostInfo();
+      console.log(hostInfo);
     });
   });
 
