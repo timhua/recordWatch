@@ -9,7 +9,7 @@
         $('#time').html("<h5>Last page refresh SERVER UTC time: " + data +"</h5>");
       });
     };
-      
+    // Takes in JSON response from Druid, returns array sorted by most frequently occuring rowCount
     var sortResults = function(data){
       var results = {},
           sortedResults = [];
@@ -28,6 +28,7 @@
 
       return sortedResults.sort(function(a,b){return b[1][0]-a[1][0];});
     };
+
 
     var appendRecordCount = function(data){
       var html = '';
@@ -74,7 +75,7 @@
       $('#summarytable').html('<thead><th> Summary </th></thead>' +
                               '<tr><td><p> Target Record Count: ' + highCount + '</p></td></tr>' + 
                               '<tr><td><p> Total Records: ' + (data.body.length-1) + '</p></td></tr>' +
-                              '<tr><td><p> Total time: ' + Math.floor(data.body.length/60) + ' min</p></td></tr>' +
+                              '<tr><td><p> Time Window: ' + Math.floor(data.body.length/60) + ' min</p></td></tr>' +
                               '<tr><td><p> Bad Record Count: ' + badCount.length + '</p></td></tr>');
                               // '<tr><td><p> Total lost records: ' + totalLostRecords + ' min</p></td></tr>');
     };
@@ -91,12 +92,12 @@
     console.log(getHostInfo());
 
     $.getJSON('/api/getData', function(data){
+        console.log(data);
       // Discarding two latest records
       data.body.pop();
       data.body.pop();
 
       sortedData = sortResults(data.body);
-      console.log(sortedData);
       appendRecordCount(sortedData);
       appendSnapshotRecords(data.body, sortedData[0][0]);
       appendBadCount(badCount);

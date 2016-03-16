@@ -8,10 +8,11 @@ var result;
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(req,res){
-  res.send('index.html');
-  res.end();
-});
+// app.get('/', function(req,res){
+//     console.log('query');
+//   res.send('index.html');
+//   res.end();
+// });
 app.get('/api/serverTime', function(req,res){
   res.send(moment.utc().toISOString());
   res.end();
@@ -19,7 +20,7 @@ app.get('/api/serverTime', function(req,res){
 
 app.get('/api/getData', function(req,res){
   var now = moment.utc().toISOString();
-  var start =  moment.utc().subtract(10, 'minutes').toISOString();
+  var start =  moment.utc().subtract(60, 'minutes').toISOString();
   var query = { 
               "queryType": "timeseries",
               "dataSource": "points_100ms",
@@ -28,7 +29,7 @@ app.get('/api/getData', function(req,res){
               "intervals": [start + '/' + now]
             };
 
-  unirest.post('http://192.168.20.220:2179/druid/v2/?')
+  unirest.post('http://192.168.20.237:2179/druid/v2/?')
     .header( { 'content-type':'application/json' })
     .send(query)
     .end(function(response){
